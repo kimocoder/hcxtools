@@ -57,10 +57,7 @@ def parse_hccapx(hccapx):
         return essid[:essid_len]
     if args.t == 'mac_ap':
         return binascii.hexlify(mac_ap).zfill(12)
-    if args.t == 'mac_sta':
-        return binascii.hexlify(mac_sta).zfill(12)
-
-    return None
+    return binascii.hexlify(mac_sta).zfill(12) if args.t == 'mac_sta' else None
 
 
 def parse_pmkid(pmkid):
@@ -80,7 +77,7 @@ def parse_pmkid(pmkid):
             if args.t == 'mac_sta':
                 return arr[2]
         except TypeError:
-            sys.stderr.write('Can\'t decode: {}\n'.format(arr[3].strip().decode()))
+            sys.stderr.write(f"Can\'t decode: {arr[3].strip().decode()}\n")
             sys.exit(1)
 
     return None
@@ -103,7 +100,7 @@ def parse_combined(hashline):
             if args.t == 'mac_sta':
                 return arr[4]
         except TypeError:
-            sys.stderr.write('Can\'t decode: {}\n'.format(arr[5].strip().decode()))
+            sys.stderr.write(f"Can\'t decode: {arr[5].strip().decode()}\n")
             sys.exit(1)
 
     return None
